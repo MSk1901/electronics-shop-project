@@ -13,6 +13,14 @@ def test_item_init(test_item):
     assert f"{name} {price} {num}" == "iPhone 80000 3"
 
 
+def test_item_repr(test_item):
+    assert repr(test_item) == "Item('iPhone', 80000, 3)"
+
+
+def test_item_str(test_item):
+    assert str(test_item) == 'iPhone'
+
+
 def test_calculate_total_price(test_item):
     assert test_item.calculate_total_price() == 240000
 
