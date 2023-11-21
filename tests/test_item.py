@@ -1,11 +1,17 @@
 import pytest
 
 from src.item import Item
+from src.phone import Phone
 
 
 @pytest.fixture
 def test_item():
     return Item("iPhone", 80000, 3)
+
+
+@pytest.fixture
+def test_phone():
+    return Phone("iPhone", 80000, 5, 1)
 
 
 def test_item_init(test_item):
@@ -52,3 +58,7 @@ def test_instantiate_from_csv():
                                                    ])
 def test_string_to_number(data, expected_result):
     assert Item.string_to_number(data) == expected_result
+
+
+def test_add(test_item, test_phone):
+    assert test_item + test_phone == 8
