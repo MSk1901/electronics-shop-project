@@ -1,6 +1,6 @@
 import pytest
 
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 from src.phone import Phone
 
 
@@ -47,8 +47,20 @@ def test_name_setter(test_item):
 
 
 def test_instantiate_from_csv():
-    Item.instantiate_from_csv("src/items.csv")
+    Item.instantiate_from_csv()
     assert len(Item.all) == 5
+
+
+def test_instantiate_from_csv_no_file():
+    with pytest.raises(FileNotFoundError):
+        assert Item.instantiate_from_csv(
+            "item.csv") == "Отсутствует файл item.csv"
+
+
+def test_instantiate_from_csv_damaged_file():
+    with pytest.raises(InstantiateCSVError):
+        assert Item.instantiate_from_csv(
+            "../src/items_damaged.csv") == "Файл item.csv поврежден"
 
 
 @pytest.mark.parametrize("data, expected_result", [("5", 5),
